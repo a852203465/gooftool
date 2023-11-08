@@ -12,7 +12,7 @@ import java.util.Map;
  * @date 2019/12/28 21:09
  */
 @Data
-@ConfigurationProperties(prefix = "wit.http-client")
+@ConfigurationProperties(prefix = "goof.httpclient")
 public class HttpClientPoolProperties {
 
     /**

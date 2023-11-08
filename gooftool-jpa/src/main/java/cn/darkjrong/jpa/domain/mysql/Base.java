@@ -1,6 +1,5 @@
 package cn.darkjrong.jpa.domain.mysql;
 
-import cn.darkjrong.jpa.domain.BaseCommon;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
-public class Base extends BaseCommon implements Serializable {
+public class Base extends cn.darkjrong.jpa.domain.IBase implements Serializable {
 
     private static final long serialVersionUID = -7519418012137093264L;
 

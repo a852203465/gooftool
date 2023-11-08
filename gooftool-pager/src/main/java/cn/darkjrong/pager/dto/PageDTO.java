@@ -1,6 +1,5 @@
 package cn.darkjrong.pager.dto;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,40 +46,6 @@ public class PageDTO implements Serializable {
      */
     @ApiModelProperty("排序字段")
     private String orderField;
-
-    /**
-     * 开始时间
-     */
-    @ApiModelProperty(" 开始时间")
-    @Min(value = 0,message = "开始时间必须大于0")
-    private Long startTime;
-
-    /**
-     * 结束时间
-     */
-    @ApiModelProperty(" 结束时间")
-    @Min(value = 0,message = "结束时间必须大于0")
-    private Long endTime;
-
-    /**
-     * 开始时间, 格式: yyyy-MM-dd hh:mm:ss
-     */
-    @ApiModelProperty("开始时间, 格式: yyyy-MM-dd hh:mm:ss")
-    private String startDate;
-
-    /**
-     * 结束时间, 格式: yyyy-MM-dd hh:mm:ss
-     */
-    @ApiModelProperty("结束时间, 格式: yyyy-MM-dd hh:mm:ss")
-    private String endDate;
-
-    public String getStartDate() {
-        return startTime == null ? startDate : DateUtil.formatDateTime(DateUtil.date(startTime));
-    }
-
-    public String getEndDate() {
-        return endTime == null ? endDate : DateUtil.formatDateTime(DateUtil.date(endTime));
-    }
 
     public Integer getCurrentPage() {
         return ObjectUtil.isNull(currentPage) ? 0 : currentPage;

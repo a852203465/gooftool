@@ -1,4 +1,4 @@
-# hdfs-spring-boot-starter
+# hdfs模块
     封装 hdfs 并制作Spring starter
 
 ## 使用方式
@@ -11,7 +11,7 @@
 
 ### 配置参数(application.properties)  yml配置
 ```yaml
-  wit:
+  goof:
     hdfs:
       enabled: true # 必须为true, 才能生效
       namespace: /data

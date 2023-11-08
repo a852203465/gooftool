@@ -1,10 +1,7 @@
 package cn.darkjrong.jpa.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.GeneratedValue;
@@ -15,19 +12,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 公共属性父类
+ * ID
  *
  * @author Rong.Jia
- * @date 2023/01/31
+ * @date 2023/11/08
  */
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
-public class BaseCommon implements Serializable {
+public class BaseId implements Serializable {
 
-    private static final long serialVersionUID = 7373982631198174412L;
+    private static final long serialVersionUID = -7955624612400157634L;
 
     /**
      * 主键
@@ -37,30 +34,13 @@ public class BaseCommon implements Serializable {
     @ApiModelProperty(value = "主键")
     private Long id;
 
-    /**
-     * 添加人
-     */
-    @ApiModelProperty("添加人")
-    private String createdUser;
-
-    /**
-     * 修改人
-     */
-    @ApiModelProperty("修改人")
-    private String updatedUser;
-
-    /**
-     * 描述
-     */
-    @ApiModelProperty("描述")
-    private String description;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        BaseCommon that = (BaseCommon) o;
-        return id != null && Objects.equals(id, that.id);
+        BaseId baseId = (BaseId) o;
+        return id != null && Objects.equals(id, baseId.id);
     }
 
     @Override

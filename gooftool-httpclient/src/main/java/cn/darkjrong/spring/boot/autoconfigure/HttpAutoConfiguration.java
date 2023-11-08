@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("cn.darkjrong.httpclient")
-@ConditionalOnProperty(prefix = "wit.http-client", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "goof.httpclient", name = "enabled", havingValue = "true")
 @ConditionalOnClass({HttpClientPoolProperties.class})
 @EnableConfigurationProperties({HttpClientPoolProperties.class})
 public class HttpAutoConfiguration {

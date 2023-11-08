@@ -1,20 +1,18 @@
-# Http 工具类封装，并制作Spring starter
+# HttpClient模块
+    基于RestTemplate封装
 
-## 1. RestTemplate 使用方式
-
-### 1. 引入依赖
+## 使用方式
+### 引入依赖
 
 ```xml
-        <dependency>
-            <groupId>cn.darkjrong</groupId>
-            <artifactId>gooftool-httpclient</artifactId>
-        </dependency>
+<dependency>
+    <groupId>cn.darkjrong</groupId>
+    <artifactId>gooftool-httpclient</artifactId>
+</dependency>
 ```
-
-### 2. 配置参数(application.properties)  yml配置
-
+### 配置参数(application.properties)yaml配置
 ```yaml
-wit:
+  goof:
     http-client:
       # 是否开启
       enabled: true

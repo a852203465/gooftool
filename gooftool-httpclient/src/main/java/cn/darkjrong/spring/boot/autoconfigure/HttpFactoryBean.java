@@ -1,7 +1,6 @@
 package cn.darkjrong.spring.boot.autoconfigure;
 
 import cn.darkjrong.httpclient.RestTemplateUtils;
-import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -23,20 +22,13 @@ public class HttpFactoryBean implements FactoryBean<RestTemplateUtils>, Initiali
 
     @Override
     public void afterPropertiesSet() {
-        try {
-            if (ObjectUtil.isNotNull(applicationContext)) {
-                this.restTemplateUtils = new RestTemplateUtils((RestTemplate)applicationContext.getBean("httpClientTemplate"));
-            }
-        }catch (Exception e) {
-            log.error("The alarm message callback thread failed to start {}", e.getMessage());
-        }
+        this.restTemplateUtils = new RestTemplateUtils((RestTemplate)applicationContext.getBean("httpClientTemplate"));
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
-
 
     @Override
     public RestTemplateUtils getObject() {

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("cn.darkjrong.hdfs")
-@ConditionalOnProperty(prefix = "wit.hdfs", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "goof.hdfs", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties({HdfsProperties.class})
 public class HdfsAutoConfiguration {
 

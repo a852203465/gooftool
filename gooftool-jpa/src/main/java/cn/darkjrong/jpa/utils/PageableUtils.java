@@ -1,5 +1,6 @@
 package cn.darkjrong.jpa.utils;
 
+import cn.darkjrong.pager.dto.PageDTO;
 import cn.darkjrong.pager.dto.SortDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,37 @@ public class PageableUtils {
 
     /**
      * 获取基础分页对象
+     * @param pageDTO 分页对象
+     * @return Pageable 分页信息对象
+     */
+    public static Pageable basicPage(PageDTO pageDTO) {
+        return basicPage(pageDTO.getCurrentPage(), pageDTO.getPageSize(), pageDTO.getOrderType(), pageDTO.getOrderField());
+    }
+
+    /**
+     * 获取基础分页对象
+     * @param currentPage 获取第几页
+     * @param pageSize 每页条数
+     * @param orderField 排序字段
+     * @param orderType 排序类型
+     * @return Pageable 分页信息对象
+     */
+    public static Pageable basicPage(Integer currentPage, Integer pageSize, String orderType, String orderField) {
+        return basicPage(currentPage, pageSize, new SortDTO(orderType, orderField));
+    }
+
+    /**
+     * 获取基础分页对象
+     * @param currentPage 获取第几页
+     * @param pageSize 每页条数
+     * @return Pageable 分页信息对象
+     */
+    public static Pageable basicPage(Integer currentPage, Integer pageSize) {
+        return basicPage(currentPage, pageSize, SortDTO.DEFAULT_ORDER_TYPE, SortDTO.DEFAULT_ORDER_FIELD);
+    }
+
+    /**
+     * 获取基础分页对象
      * @param page 获取第几页
      * @param size 每页条数
      * @param dtos 排序对象数组
@@ -24,8 +56,7 @@ public class PageableUtils {
         Sort sort = SortUtils.basicSort(dtos);
         page = (page == null || page < 0) ? 0 : page;
         size = (size == null || size <= 0) ? 20 : size;
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return pageable;
+        return PageRequest.of(page, size, sort);
     }
 
     /**

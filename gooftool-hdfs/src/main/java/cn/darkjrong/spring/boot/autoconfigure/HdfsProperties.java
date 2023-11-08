@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2019/12/28 21:09
  */
 @Data
-@ConfigurationProperties(prefix = "wit.hdfs")
+@ConfigurationProperties(prefix = "goof.hdfs")
 public class HdfsProperties {
 
     /**

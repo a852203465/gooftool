@@ -26,7 +26,7 @@ import java.util.*;
  * @date 2021/12/20
  */
 @Slf4j
-@SuppressWarnings("all")
+@SuppressWarnings("ALL")
 public class RestTemplateUtils {
 
     private static final Integer success = 200;

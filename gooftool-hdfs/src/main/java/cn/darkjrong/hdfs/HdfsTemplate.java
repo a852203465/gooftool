@@ -21,6 +21,7 @@ import java.util.List;
  * @date 2021/12/31
  */
 @Slf4j
+@SuppressWarnings("ALL")
 public class HdfsTemplate {
 
     private final FileSystem fileSystem;
