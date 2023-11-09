@@ -1,7 +1,7 @@
 package com.xdcplus.minio;
 
 import cn.darkjrong.minio.MinioTemplate;
-import cn.darkjrong.spring.boot.autoconfigure.MinioAutoConfiguration;
+import cn.darkjrong.spring.boot.autoconfigure.MinioClientFactoryBean;
 import cn.darkjrong.spring.boot.autoconfigure.MinioFactoryBean;
 import cn.darkjrong.spring.boot.autoconfigure.MinioProperties;
 import io.minio.messages.Bucket;
@@ -30,10 +30,12 @@ public class MinioTemplateTest {
         properties.setSecretKey("minio123");
         properties.setBucketName("test");
 
-        MinioFactoryBean minioFactoryBean = new MinioAutoConfiguration(properties).minioFactoryBean();
+        MinioClientFactoryBean minioClientFactoryBean = new MinioClientFactoryBean(properties);
+        minioClientFactoryBean.afterPropertiesSet();
+
+        MinioFactoryBean minioFactoryBean = new MinioFactoryBean(minioClientFactoryBean.getObject(), properties);
         minioFactoryBean.afterPropertiesSet();
         minioTemplate = minioFactoryBean.getObject();
-
     }
 
 

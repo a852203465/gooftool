@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2021/08/03 22:31:18
  */
 @Data
-@ConfigurationProperties(prefix = "wit.minio")
+@ConfigurationProperties(prefix = "goof.minio")
 public class MinioProperties {
 
     private static final long DEFAULT_TIMEOUT = 5 * 60 * 1000L;

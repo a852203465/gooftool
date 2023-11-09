@@ -1,5 +1,6 @@
 package cn.darkjrong.spring.boot.autoconfigure;
 
+import io.minio.MinioClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("cn.darkjrong.minio")
 @EnableConfigurationProperties({MinioProperties.class})
-@ConditionalOnProperty(prefix = "wit.minio", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "goof.minio", name = "enabled", havingValue = "true")
 public class MinioAutoConfiguration {
 
     private final MinioProperties minioProperties;
@@ -25,11 +26,14 @@ public class MinioAutoConfiguration {
     }
 
     @Bean
-    public MinioFactoryBean minioFactoryBean() {
-        return new MinioFactoryBean(minioProperties);
+    public MinioFactoryBean minioFactoryBean(MinioClient minioClient) {
+        return new MinioFactoryBean(minioClient, minioProperties);
     }
 
-
+    @Bean
+    public MinioClientFactoryBean minioClientFactoryBean() {
+        return new MinioClientFactoryBean(minioProperties);
+    }
 
 
 }
