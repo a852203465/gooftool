@@ -1,0 +1,46 @@
+package cn.darkjrong.watermark;
+
+import cn.hutool.core.lang.Assert;
+import com.aspose.words.License;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * 许可证工具类
+ *
+ * @author Rong.Jia
+ * @date 2021/08/29
+ */
+@Slf4j
+public class LicenseUtils {
+
+    private static final String LICENSE_XML = "license.xml";
+    private static final AtomicBoolean LICENSE = new AtomicBoolean(Boolean.FALSE);
+
+    static {
+        try {
+            License wordLicense = new License();
+            com.aspose.cells.License cellsLicense = new com.aspose.cells.License();
+            com.aspose.slides.License slideLicense = new com.aspose.slides.License();
+            com.aspose.pdf.License pdLicense = new com.aspose.pdf.License();
+            cellsLicense.setLicense(LicenseUtils.class.getClassLoader().getResourceAsStream(LICENSE_XML));
+            pdLicense.setLicense(LicenseUtils.class.getClassLoader().getResourceAsStream(LICENSE_XML));
+            slideLicense.setLicense(LicenseUtils.class.getClassLoader().getResourceAsStream(LICENSE_XML));
+            wordLicense.setLicense(LicenseUtils.class.getClassLoader().getResourceAsStream(LICENSE_XML));
+            LICENSE.compareAndSet(Boolean.FALSE, Boolean.TRUE);
+        } catch (Exception e) {
+            LICENSE.compareAndSet(Boolean.FALSE, Boolean.FALSE);
+            log.error("License验证失败... ", e);
+        }
+    }
+
+    /**
+     * 验证许可证
+     */
+    public static void verificationLicense() {
+        Assert.isTrue(LICENSE.get(), "License验证不通过...");
+    }
+
+
+}

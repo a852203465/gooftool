@@ -127,7 +127,11 @@
                 <artifactId>gooftool-swagger-gateway</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>cn.darkjrong</groupId>
+                <artifactId>gooftool-watermark</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
