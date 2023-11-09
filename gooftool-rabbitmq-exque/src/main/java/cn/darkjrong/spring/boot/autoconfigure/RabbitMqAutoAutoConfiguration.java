@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("cn.darkjrong.rabbitmq")
-public class RabbitMqAutoConfigure {
+public class RabbitMqAutoAutoConfiguration {
 
 
 

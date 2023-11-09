@@ -1,14 +1,13 @@
-# 基于Redis实现分布式锁
+# Redis分布式锁模块
  支持注解模式, 工具类模式
 
-## 1. 使用方式
-### 1.1 引入依赖
+## 使用方式
+### 引入依赖
 ```xml
 <dependencies>
     <dependency>
         <groupId>cn.darkjrong</groupId>
         <artifactId>gooftool-redis-lock</artifactId>
-        <version>${latestversion}</version>
     </dependency>
 </dependencies>
 ```

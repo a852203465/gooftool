@@ -31,12 +31,12 @@ public class WebfluxProductionSecurityFilter implements WebFilter {
     /***
      * 是否生产环境,如果是生成环境,过滤Swagger的相关资源请求
      */
-    private boolean production = false;
+    private boolean enabled = true;
     protected List<Pattern> urlFilters= new ArrayList<>();
 
-    public WebfluxProductionSecurityFilter(boolean production) {
+    public WebfluxProductionSecurityFilter(boolean enabled) {
         this();
-        this.production = production;
+        this.enabled = enabled;
     }
 
     public WebfluxProductionSecurityFilter(){
@@ -55,7 +55,7 @@ public class WebfluxProductionSecurityFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 
         ServerHttpRequest request = exchange.getRequest();
-        if (production){
+        if (!enabled){
             String uri=request.getPath().value();
             if (!match(uri)){
                 return chain.filter(exchange);

@@ -6,12 +6,9 @@ import springfox.documentation.swagger.web.SwaggerResource;
  * Swagger 工具类
  *
  * @author Rong.Jia
- * @date 2021/07/09
+ * @date 2021/07/09s
  */
 public class SwaggerUtils {
-
-//    private static final String SWAGGER_VERSION = "3.0";
-//    public static final String API_URI = "/v3/api-docs";
 
     /**
      * Swagger的资源

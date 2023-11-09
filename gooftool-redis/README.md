@@ -1,6 +1,7 @@
-# 整合Redis 配置设置
+# Redis模块
+    整合Redis配置设置
 
-## 对RedisUtils 说明
+## 对RedisUtils说明
 
 [Redis知识补充](#知识补充) <br/>
 [Redis与Spring集成](#三redis与spring的集成) <br/>

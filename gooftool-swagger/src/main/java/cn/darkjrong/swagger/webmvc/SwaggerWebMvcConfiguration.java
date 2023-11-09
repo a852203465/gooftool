@@ -50,7 +50,7 @@ public class SwaggerWebMvcConfiguration {
     @Bean
     @ConditionalOnMissingBean(ProductionSecurityFilter.class)
     public ProductionSecurityFilter productionSecurityFilter(){
-        return new ProductionSecurityFilter(swaggerProperties.isProduction());
+        return new ProductionSecurityFilter(!swaggerProperties.isEnabled());
     }
 
     @Bean

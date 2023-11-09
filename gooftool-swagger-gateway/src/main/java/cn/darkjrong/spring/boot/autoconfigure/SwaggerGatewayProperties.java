@@ -1,4 +1,4 @@
-package cn.darkjrong.swagger.gateway;
+package cn.darkjrong.spring.boot.autoconfigure;
 
 import lombok.Data;
 

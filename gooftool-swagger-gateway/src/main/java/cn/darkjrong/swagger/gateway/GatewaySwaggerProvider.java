@@ -1,5 +1,6 @@
 package cn.darkjrong.swagger.gateway;
 
+import cn.darkjrong.spring.boot.autoconfigure.CustomGatewayProperties;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;

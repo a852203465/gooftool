@@ -1,5 +1,6 @@
 package cn.darkjrong.swagger.gateway;
 
+import cn.darkjrong.spring.boot.autoconfigure.CustomGatewayProperties;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;

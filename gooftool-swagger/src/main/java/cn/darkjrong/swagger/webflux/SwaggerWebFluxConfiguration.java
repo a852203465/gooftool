@@ -26,7 +26,7 @@ public class SwaggerWebFluxConfiguration {
     @Bean
     @ConditionalOnMissingBean(WebfluxProductionSecurityFilter.class)
     public WebfluxProductionSecurityFilter webfluxProductionSecurityFilter(){
-        return new WebfluxProductionSecurityFilter(swaggerProperties.isProduction());
+        return new WebfluxProductionSecurityFilter(swaggerProperties.isEnabled());
     }
 
 }

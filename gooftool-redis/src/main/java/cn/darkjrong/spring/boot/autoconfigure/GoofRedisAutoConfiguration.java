@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("cn.darkjrong.redis")
 @EnableConfigurationProperties(CacheProperties.class)
-public class WitRedisAutoConfiguration {
+public class GoofRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(RedisKeySerializer.class)

@@ -1,15 +1,16 @@
-package cn.darkjrong.swagger.gateway;
+package cn.darkjrong.spring.boot.autoconfigure;
 
+import com.netflix.zuul.filters.ZuulServletFilter;
+import com.netflix.zuul.http.ZuulServlet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.config.WebFluxConfigurer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 网关属性配置
@@ -19,9 +20,9 @@ import java.util.List;
  */
 @Data
 @Component
-@ConditionalOnClass({WebFluxConfigurer.class})
-@ConfigurationProperties("spring.cloud.gateway")
-public class CustomGatewayProperties {
+@ConditionalOnClass({ZuulServlet.class, ZuulServletFilter.class})
+@ConfigurationProperties("zuul")
+public class CustomZuulProperties {
 
     /**
      * swagger
@@ -31,7 +32,7 @@ public class CustomGatewayProperties {
     /**
      * 路由
      */
-    private List<CustomRouteDefinition> routes = new ArrayList<>();
+    private Map<String, CustomZuulRoute> routes = new LinkedHashMap<>();
 
     /**
      * 自定义路由定义属性
@@ -41,7 +42,7 @@ public class CustomGatewayProperties {
      */
     @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class CustomRouteDefinition extends RouteDefinition {
+    public static class CustomZuulRoute extends ZuulProperties.ZuulRoute {
 
         /**
          * 路由名
@@ -60,13 +61,8 @@ public class CustomGatewayProperties {
     @Data
     public static class SwaggerProperties extends SwaggerGatewayProperties {
 
-        /**
-         *  header Name， 默认： X-Forwarded-Prefix
-         */
-        private String headerName = "X-Forwarded-Prefix";
-
-
 
     }
+
 
 }

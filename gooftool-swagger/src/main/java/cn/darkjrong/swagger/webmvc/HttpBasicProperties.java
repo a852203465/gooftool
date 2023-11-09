@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2022/02/11
  */
 @Data
-@ConfigurationProperties(prefix = "wit.swagger.basic")
+@ConfigurationProperties(prefix = "goof.swagger.basic")
 public class HttpBasicProperties {
 
     /**

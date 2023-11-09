@@ -18,13 +18,13 @@ import java.util.Map;
  * @date 2021/12/20
  */
 @Data
-@ConfigurationProperties(prefix = "wit.swagger")
+@ConfigurationProperties(prefix = "goof.swagger")
 public class SwaggerProperties {
 
 	/**
-	 * 是否是生产环境,默认为false
+	 * 是否开启
 	 */
-	private boolean production = false;
+	private boolean enabled = true;
 
 	/**
 	 * swagger会解析的包路径

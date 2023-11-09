@@ -1,12 +1,12 @@
-# rabbitmq 消息队列和交换机配置 starter
+# rabbitmq队列和交换机配置模块
 
 ## 使用方式
 ### 引入依赖
 ```xml
-        <dependency>
-            <groupId>cn.darkjrong</groupId>
-            <artifactId>gooftool-rabbitmq-exque</artifactId>
-        </dependency>
+<dependency>
+    <groupId>cn.darkjrong</groupId>
+    <artifactId>gooftool-rabbitmq-exque</artifactId>
+</dependency>
 ```
 ### 配置参数(application.properties)  yml配置
 ```yaml
