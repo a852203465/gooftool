@@ -27,7 +27,7 @@
         <module>gooftool-redis</module>
         <module>gooftool-swagger-gateway</module>
         <module>gooftool-swagger</module>
-<!--        <module>gooftool-fdfs</module>-->
+        <!--        <module>gooftool-fdfs</module>-->
         <module>gooftool-ftpclient</module>
         <module>gooftool-hdfs</module>
         <module>gooftool-rabbitmq-exque</module>
@@ -263,7 +263,28 @@
                 <artifactId>tika-core</artifactId>
                 <version>2.1.0</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.aspose</groupId>
+                <artifactId>aspose-words</artifactId>
+                <version>21.11</version>
+                <classifier>jdk17</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.aspose</groupId>
+                <artifactId>aspose-slides</artifactId>
+                <version>21.8</version>
+                <classifier>jdk16</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.aspose</groupId>
+                <artifactId>aspose-cells</artifactId>
+                <version>21.8</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aspose</groupId>
+                <artifactId>aspose-pdf</artifactId>
+                <version>21.8</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
