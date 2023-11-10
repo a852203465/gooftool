@@ -5,7 +5,8 @@ import cn.darkjrong.watermark.domain.WatermarkParam;
 import cn.darkjrong.watermark.exceptions.WatermarkException;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,8 +21,9 @@ import java.io.File;
  * @author Rong.Jia
  * @date 2018年9月17日 下午5:22:56
  */
-@Slf4j
 public class ImageWatermarkProcessor extends AbstractWatermarkProcessor {
+
+	private static final Logger logger = LoggerFactory.getLogger(ImageWatermarkProcessor.class);
 
 	@Override
 	public Boolean supportType(File file) {
@@ -72,7 +74,7 @@ public class ImageWatermarkProcessor extends AbstractWatermarkProcessor {
 			ImageIO.write(bufferImg, FileUtil.extName(watermarkParam.getFile()), outputStream);
 			return outputStream.toByteArray();
 		}catch (Exception e) {
-			log.error("Failed to add watermark to the image {}", e.getMessage());
+			logger.error("Failed to add watermark to the image {}", e.getMessage());
 			throw new WatermarkException(e.getMessage());
 		}finally {
 			IoUtil.close(outputStream);

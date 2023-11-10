@@ -5,11 +5,12 @@ import cn.darkjrong.watermark.domain.WatermarkParam;
 import cn.darkjrong.watermark.exceptions.WatermarkException;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.docx4j.openpackaging.packages.SpreadsheetMLPackage;
 import org.docx4j.openpackaging.parts.SpreadsheetML.WorksheetPart;
 import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
 import org.docx4j.relationships.Relationship;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xlsx4j.jaxb.Context;
 import org.xlsx4j.sml.CTSheetBackgroundPicture;
 
@@ -22,8 +23,9 @@ import java.io.File;
  * @author Rong.Jia
  * @date 2021/08/13 14:01:45
  */
-@Slf4j
 public class ExcelWatermarkProcessor extends AbstractWatermarkProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExcelWatermarkProcessor.class);
 
     @Override
     public Boolean supportType(File file) {
@@ -44,7 +46,7 @@ public class ExcelWatermarkProcessor extends AbstractWatermarkProcessor {
             excelPackage.save(outputStream);
             return outputStream.toByteArray();
         } catch (Exception e) {
-            log.error("Excel added watermark exception {}", e.getMessage());
+            logger.error("Excel added watermark exception {}", e.getMessage());
             throw new WatermarkException(e.getMessage());
         }finally {
             IoUtil.close(outputStream);

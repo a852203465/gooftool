@@ -5,7 +5,8 @@ import cn.darkjrong.watermark.domain.WatermarkParam;
 import cn.darkjrong.watermark.exceptions.WatermarkException;
 import cn.hutool.core.io.IoUtil;
 import com.aspose.words.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,8 +20,9 @@ import java.io.InputStream;
  * @author Rong.Jia
  * @date 2021/08/13 16:32:33
  */
-@Slf4j
 public class WordWatermarkProcessor extends AbstractWatermarkProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(WordWatermarkProcessor.class);
 
     @Override
     public Boolean supportType(File file) {
@@ -54,7 +56,7 @@ public class WordWatermarkProcessor extends AbstractWatermarkProcessor {
             doc.save(outputStream, SaveFormat.DOCX);
             return outputStream.toByteArray();
         }catch (Exception e) {
-            log.error("WordWatermarkProcessor {}", e.getMessage());
+            logger.error("WordWatermarkProcessor {}", e.getMessage());
             throw new WatermarkException(e.getMessage());
         }finally {
             IoUtil.close(outputStream);

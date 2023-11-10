@@ -90,14 +90,7 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/resources/libs/aspose-pdf-21.8.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itext-asian</artifactId>
-        </dependency>
+
 
 
     </dependencies>

@@ -3,17 +3,14 @@ package cn.darkjrong.watermark.factory;
 import cn.darkjrong.watermark.FileTypeUtils;
 import cn.darkjrong.watermark.domain.WatermarkParam;
 import cn.darkjrong.watermark.exceptions.WatermarkException;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfGState;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
-import lombok.extern.slf4j.Slf4j;
+import com.aspose.pdf.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -24,85 +21,65 @@ import java.io.InputStream;
  * @author Rong.Jia
  * @date 2021/08/13 10:06:40
  */
-@Slf4j
 public class PdfWatermarkProcessor extends AbstractWatermarkProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(PdfWatermarkProcessor.class);
 
     @Override
     public Boolean supportType(File file) {
-        return FileTypeUtils.isPdf(file);
+        return FileTypeUtils.isPdf(file) || FileTypeUtils.isHtml(file);
     }
 
     @Override
     public byte[] watermark(WatermarkParam watermarkParam) throws WatermarkException {
 
-        PdfReader reader = null;
-        PdfStamper stamper = null;
-        ByteArrayOutputStream outputStream = null;
         InputStream inputStream = null;
+        ByteArrayOutputStream outputStream = null;
+        InputStream imageInput = null;
         try {
-            outputStream = new ByteArrayOutputStream();
             inputStream = getInputStream(watermarkParam.getFile());
-            reader = new PdfReader(inputStream);
-            stamper = new PdfStamper(reader, outputStream);
-            int pageNo = reader.getNumberOfPages();
+            Document pdfDocument = new Document(inputStream);
+            imageInput = FileUtil.getInputStream(watermarkParam.getImageFile());
+            ImageStamp imageStamp = new ImageStamp(imageInput);
 
-            // image watermark
-            Image img = Image.getInstance(FileUtil.readBytes(watermarkParam.getImageFile()));
-            float w = Math.min(img.getScaledWidth(), 460);
-            float h = Math.min(img.getScaledHeight(), 300);
+            Image image = ImageIO.read(watermarkParam.getImageFile());
 
-            // 设置透明度
-            PdfGState gs = new PdfGState();
-            gs.setFillOpacity(watermarkParam.getAlpha());
+            //设置水印背景的宽高，还有透明度
+            imageStamp.setHeight(image.getWidth(null));
+            imageStamp.setWidth(image.getHeight(null));
+            imageStamp.setOpacity(1 - watermarkParam.getAlpha());
 
-            Integer imgH = Convert.toInt(img.getHeight());
-            Integer imgW = Convert.toInt(img.getWidth());
-
-            PdfContentByte over;
-            Rectangle pageRect;
-            float x, y;
-            // loop over every page
-            for (int i = 1; i <= pageNo; i++) {
-                pageRect = reader.getPageSizeWithRotation(i);
-                x = (pageRect.getLeft() + pageRect.getRight()) / 2;
-                y = (pageRect.getTop() + pageRect.getBottom()) / 2;
-                over = stamper.getOverContent(i);
-
-                over.saveState();
-                over.setGState(gs);
-
+            for (int i = 1; i <= pdfDocument.getPages().size(); i++) {
+                Page page = pdfDocument.getPages().get_Item(i);
+                PageInfo pageInfo = page.getPageInfo();
                 if (!watermarkParam.getBespread()) {
-                    // 第3个参数：旋转， 第4参数：斜体角度
-//                    over.addImage(img, w, 0, 0, h, x - (w / 2), y - (h / 2));
-                    over.addImage(img, w, 0, 0, h, watermarkParam.getXMove(), watermarkParam.getYMove());
-                }else {
-                    for (int height = watermarkParam.getYMove() + imgH;
-                         height < pageRect.getHeight();
-                         height = height + imgH * 3) {
-                        for (int width = watermarkParam.getXMove() + imgW;
-                             width < pageRect.getWidth() + imgW;
-                             width = width + imgW *2) {
-                            // 第3个参数：旋转， 第4参数：斜体角度
-                            over.addImage(img, w, 0, 0, h, width - imgW, height - imgH);
+                    imageStamp.setXIndent(pageInfo.getWidth() / 2 - watermarkParam.getXMove());
+                    imageStamp.setYIndent(pageInfo.getHeight() / 2 - watermarkParam.getYMove());
+                    page.addStamp(imageStamp);
+                } else {
+                    //让每一页的边距为0，也可以自定义设置
+                    pageInfo.setMargin(new MarginInfo(5, 5, 5, 5));
+                    for (double y = 0; y < pageInfo.getHeight(); y = y + imageStamp.getHeight() + watermarkParam.getYMove()) {
+                        for (double x = 0; x < pageInfo.getWidth(); x = x + imageStamp.getWidth() + watermarkParam.getXMove()) {
+                            //设置图片位置的x,y轴，通过双重循环来达到铺满背景的目的
+                            imageStamp.setXIndent(x);
+                            imageStamp.setYIndent(y);
+                            //添加水印
+                            page.addStamp(imageStamp);
                         }
                     }
                 }
-                over.restoreState();
             }
-            stamper.close();
+            outputStream = new ByteArrayOutputStream();
+            pdfDocument.save(outputStream);
             return outputStream.toByteArray();
-        }catch (Exception e) {
-            log.error("Description Failed to add watermark to PDF :  {}", e.getMessage());
+        } catch (Exception e) {
+            logger.error("Description Failed to add watermark to PDF :  {}", e.getMessage());
             throw new WatermarkException(e.getMessage());
-        }finally {
-            if (reader!=null) {
-                reader.close();
-            }
-            IoUtil.close(outputStream);
+        } finally {
             IoUtil.close(inputStream);
+            IoUtil.close(outputStream);
+            IoUtil.close(imageInput);
         }
-
     }
-
-
 }
